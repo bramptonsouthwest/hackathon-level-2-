@@ -1,42 +1,107 @@
 namespace SpriteKind {
     export const Life = SpriteKind.create()
-    export const coin = SpriteKind.create()
+    export const Goblet = SpriteKind.create()
+    export const Client = SpriteKind.create()
 }
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
-    info.changeLifeBy(-1)
-    tiles.placeOnTile(sprite, tiles.getTileLocation(2, 2))
+	
 })
-function glitch_for_lives () {
-    tiles.setCurrentTilemap(tilemap`level1`)
-    for (let index = 0; index < 2; index++) {
-        hearts = sprites.create(img`
-            d d d d d d d d d d d d d d d d 
-            d d f f f f f f d f f f f f f d 
-            d f f 3 3 3 3 f f f 3 3 3 3 f f 
-            d f 3 3 3 3 3 3 f 3 3 3 3 3 3 f 
-            d f 3 3 3 3 3 3 3 3 1 1 1 3 3 f 
-            d f 3 3 3 3 3 3 3 3 1 1 1 3 3 f 
-            d f 3 3 3 3 3 b b b 1 1 1 3 3 f 
-            d f 3 3 3 3 b b b b b 3 3 3 3 f 
-            d f f 3 3 b b b b b b b 3 3 f f 
-            d d f f 3 b b b b b b b 3 f f d 
-            d d d f f b b b b b b b f f d d 
-            d d d d f f b b b b b f f d d d 
-            d d d d d f f b b b f f d d d d 
-            d d d d d d f f b f f d d d d d 
-            d d d d d d d f f f d d d d d d 
-            d d d d d d d d d d d d d d d d 
-            `, SpriteKind.Life)
-        tiles.placeOnRandomTile(hearts, sprites.castle.tilePath5)
-    }
-    sprites.destroy(WIN_TOKEN)
-    sprites.destroy(Zombie_1)
-    sprites.destroy(Zombie_2)
-    sprites.destroy(Zombie_3)
-}
-function Main_page () {
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Client, function (sprite, otherSprite) {
+    game.splash("One step away from entering the mansion...")
+    game.splash("Find the goblet")
+    game.splash("Don't touch the walls")
+    game.splash("Good luck...")
+    sprites.destroy(npc)
+    game.setDialogFrame(img`
+        ffffff7ffffffffffff7ffffffffffff7ffffffffffff7ffffffffffff7fffffff
+        fffff77fffffffffff77fffffffffff77fffffffffff77fffffffffff77fffffff
+        ff444444444ffff444444444ffff444444444ffff444444444ffff444444444fff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        ff444444444ffff444444444ffff444444444ffff444444444ffff444444444fff
+        fff4444444ffffff4444444ffffff4444444ffffff4444444ffffff4444444ffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffff7ffffffffffff7ffffffffffff7ffffffffffff7ffffffffffff7fffffff
+        fffff77fffffffffff77fffffffffff77fffffffffff77fffffffffff77fffffff
+        ff444444444ffff444444444ffff444444444ffff444444444ffff444444444fff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
+        ff444444444ffff444444444ffff444444444ffff444444444ffff444444444fff
+        fff4444444ffffff4444444ffffff4444444ffffff4444444ffffff4444444ffff
+        `)
+    game.setDialogTextColor(1)
+    game.showLongText("FIND THE DOOR", DialogLayout.Bottom)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
+    Secret_Room()
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Goblet, function (sprite, otherSprite) {
+    game.gameOver(true)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Life, function (sprite, otherSprite) {
+	
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, location) {
+    Maze()
+})
+info.onLifeZero(function () {
+    sprites.destroy(player1)
+    game.gameOver(false)
+})
+function Maze () {
     tiles.setCurrentTilemap(tilemap`level3`)
-    tiles.placeOnTile(Main_Player, tiles.getTileLocation(1, 1))
+    tiles.placeOnTile(player1, tiles.getTileLocation(1, 1))
     Zombie_1 = sprites.create(img`
         ........................
         ........................
@@ -115,53 +180,76 @@ function Main_page () {
         ........................
         ........................
         `, SpriteKind.Enemy)
-    WIN_TOKEN = sprites.create(img`
-        . . b b b . . . 
-        . b 5 5 5 b . . 
-        b 5 d 3 d 5 b . 
-        b 5 3 5 1 5 b . 
-        c 5 3 5 1 d c . 
-        c 5 d 1 d d c . 
-        . f d d d f . . 
-        . . f f f . . . 
-        `, SpriteKind.coin)
+    artifact = sprites.create(img`
+        ....................
+        ....................
+        ....................
+        ....................
+        ....................
+        ....................
+        .........bb.........
+        ........cccc........
+        ........cccc........
+        .........ff.........
+        .........cf.........
+        .........cc.........
+        ........cccc........
+        .......cbbccc.......
+        .......cbcccc.......
+        .......cccccc.......
+        .......cccccf.......
+        ........cfff........
+        ....................
+        ....................
+        `, SpriteKind.Goblet)
     tiles.placeOnRandomTile(Zombie_1, sprites.dungeon.darkGroundCenter)
     tiles.placeOnRandomTile(Zombie_2, sprites.dungeon.darkGroundCenter)
     tiles.placeOnRandomTile(Zombie_3, sprites.dungeon.darkGroundCenter)
-    tiles.placeOnRandomTile(WIN_TOKEN, sprites.dungeon.darkGroundCenter)
-    Zombie_3.follow(Main_Player, 20)
-    Zombie_2.follow(Main_Player, 20)
-    Zombie_1.follow(Main_Player, 20)
+    tiles.placeOnRandomTile(artifact, sprites.dungeon.darkGroundCenter)
+    Zombie_3.follow(player1, 20)
+    Zombie_2.follow(player1, 20)
+    Zombie_1.follow(player1, 20)
 }
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
-    glitch_for_lives()
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSprite) {
-    game.gameOver(true)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Life, function (sprite, otherSprite) {
-    info.changeLifeBy(1)
-    sprites.destroy(otherSprite)
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, location) {
-    Main_page()
-})
-info.onLifeZero(function () {
-    sprites.destroy(NPC_at_Start)
-    game.gameOver(false)
-})
+function Secret_Room () {
+    tiles.setCurrentTilemap(tilemap`level1`)
+    for (let index = 0; index < 2; index++) {
+        hearts = sprites.create(img`
+            d d d d d d d d d d d d d d d d 
+            d d f f f f f f d f f f f f f d 
+            d f f 3 3 3 3 f f f 3 3 3 3 f f 
+            d f 3 3 3 3 3 3 f 3 3 3 3 3 3 f 
+            d f 3 3 3 3 3 3 3 3 1 1 1 3 3 f 
+            d f 3 3 3 3 3 3 3 3 1 1 1 3 3 f 
+            d f 3 3 3 3 3 b b b 1 1 1 3 3 f 
+            d f 3 3 3 3 b b b b b 3 3 3 3 f 
+            d f f 3 3 b b b b b b b 3 3 f f 
+            d d f f 3 b b b b b b b 3 f f d 
+            d d d f f b b b b b b b f f d d 
+            d d d d f f b b b b b f f d d d 
+            d d d d d f f b b b f f d d d d 
+            d d d d d d f f b f f d d d d d 
+            d d d d d d d f f f d d d d d d 
+            d d d d d d d d d d d d d d d d 
+            `, SpriteKind.Life)
+        tiles.placeOnRandomTile(hearts, sprites.castle.tilePath5)
+    }
+    sprites.destroy(artifact)
+    sprites.destroy(Zombie_1)
+    sprites.destroy(Zombie_2)
+    sprites.destroy(Zombie_3)
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    info.changeLifeBy(-0.5)
-    tiles.placeOnTile(sprite, tiles.getTileLocation(1, 1))
-    tiles.placeOnTile(otherSprite, tiles.getTileLocation(14, 14))
+	
 })
+let hearts: Sprite = null
+let artifact: Sprite = null
 let Zombie_3: Sprite = null
 let Zombie_2: Sprite = null
 let Zombie_1: Sprite = null
-let WIN_TOKEN: Sprite = null
-let hearts: Sprite = null
-let Main_Player: Sprite = null
-let NPC_at_Start: Sprite = null
+let player1: Sprite = null
+let npc: Sprite = null
+game.splash("You made it through the door")
+game.splash("Talk to the client")
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999966666699969999999999999999999999999999999999999999999999999999
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -284,32 +372,26 @@ scene.setBackgroundImage(img`
     4ddddddd4d444dd4dd4ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd4ddddddddddddddddddddddddddddddd4ddddddddddddddddddddddddddddd4ddddddddd
     dddddddddd444ddddd3ddddddddddddd4ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd44dddddddddddddddddddddddddddddddddd4ddddddddd
     `)
-music.play(music.createSong(hex`0096000408020800001c00010a006400f4016400000400000000000000000000000000050000042e0004000800022a2c08000c0001270c00100001201000140002242718001c000220291c00200002222528002c00012503001c0001dc00690000045e0100040000000000000000000005640001040003190000000400012c0c00100001271c00200002202920002400012704001c00100500640000041e000004000000000000000000000000000a0400040c0000000400012208000c00012705001c000f0a006400f4010a0000040000000000000000000000000000000002210014001800012c2000240002252a24002c00012230003400012a340038000320222906001c00010a006400f4016400000400000000000000000000000000000000023d0004000800012908000c000222270c001000012a10001400012718001c0001251c002000011e24002800012928002c00012c2c003000012230003400012907001c00020a006400f401640000040000000000000000000000000000000003240008000c00012c14001800012418001c00012c2000240001222c003000012c30003400012408001c000e050046006603320000040a002d00000064001400013200020100022b0000000400012904000800012408000c0001240c001000012a10001400012a14001800021e2928002c00012709010e02026400000403780000040a000301000000640001c80000040100000000640001640000040100000000fa0004af00000401c80000040a00019600000414000501006400140005010000002c0104dc00000401fa0000040a0001c8000004140005d0076400140005d0070000c800029001f40105c201f4010a0005900114001400039001000005c201f4010500058403050032000584030000fa00049001000005c201f4010500058403c80032000584030500640005840300009001049001000005c201f4010500058403c80064000584030500c8000584030000f40105ac0d000404a00f00000a0004ac0d2003010004a00f0000280004ac0d9001010004a00f0000280002d00700040408070f0064000408070000c80003c800c8000e7d00c80019000e64000f0032000e78000000fa00032c01c8000ee100c80019000ec8000f0032000edc000000fa0003f401c8000ea901c80019000e90010f0032000ea4010000fa0001c8000004014b000000c800012c01000401c8000000c8000190010004012c010000c80002c800000404c8000f0064000496000000c80002c2010004045e010f006400042c010000640002c409000404c4096400960004f6090000f40102b80b000404b80b64002c0104f40b0000f401022003000004200300040a000420030000ea01029001000004900100040a000490010000900102d007000410d0076400960010d0070000c800390004000500010b0800090001080c000d0001071000110002060a180019000204071c001d00010a240025000205092800290001062c002d000109`), music.PlaybackMode.LoopingInBackground)
-NPC_at_Start = sprites.create(img`
-    . . . . . f f f f . . . . . 
-    . . . f f 5 5 5 5 f f . . . 
-    . . f 5 5 5 5 5 5 5 5 f . . 
-    . f 5 5 5 5 5 5 5 5 5 5 f . 
-    . f 5 5 5 d b b d 5 5 5 f . 
-    f 5 5 5 b 4 4 4 4 b 5 5 5 f 
-    f 5 5 c c 4 4 4 4 c c 5 5 f 
-    f b b f b f 4 4 f b f b b f 
-    f b b 4 1 f d d f 1 4 b b f 
-    . f b f d d d d d d f b f . 
-    . f e f e 4 4 4 4 e f e f . 
-    . e 4 f 6 9 9 9 9 6 f 4 e . 
-    . 4 d c 9 9 9 9 9 9 c d 4 . 
-    . 4 f b 3 b 3 b 3 b b f 4 . 
-    . . f f 3 b 3 b 3 3 f f . . 
-    . . . . f f b b f f . . . . 
-    `, SpriteKind.Player)
-NPC_at_Start.setPosition(81, 21)
-game.splash("GOOD LUCK")
-game.splash("Here the Rules!!!")
-game.splash("Find the hidden object!!!")
-game.splash("Don't Touch The walls!!!")
-game.splash("HAVE FUN!!!")
-sprites.destroy(NPC_at_Start)
+music.play(music.createSong(hex`00960004080200`), music.PlaybackMode.LoopingInBackground)
+npc = sprites.create(img`
+    . . . . f f f f . . . . 
+    . . f f e e e e f f . . 
+    . f f e e e e e e f f . 
+    f f f f 4 e e e f f f f 
+    f f f 4 4 4 e e f f f f 
+    f f f 4 4 4 4 e e f f f 
+    f 4 e 4 4 4 4 4 4 e 4 f 
+    f 4 4 f f 4 4 f f 4 4 f 
+    f e 4 d d d d d d 4 e f 
+    . f e d d b b d d e f . 
+    . f f e 4 4 4 4 e f f . 
+    e 4 f b 1 1 1 1 b f 4 e 
+    4 d f 1 1 1 1 1 1 f d 4 
+    4 4 f 6 6 6 6 6 6 f 4 4 
+    . . . f f f f f f . . . 
+    . . . f f . . f f . . . 
+    `, SpriteKind.Client)
+npc.setPosition(81, 21)
 scene.setBackgroundImage(img`
     ................................................................................................................................................................
     ................................................................................................................................................................
@@ -433,7 +515,7 @@ scene.setBackgroundImage(img`
     ................................................................................................................................................................
     `)
 tiles.setCurrentTilemap(tilemap`level1`)
-Main_Player = sprites.create(img`
+player1 = sprites.create(img`
     . . . . . . f f f f . . . . . . 
     . . . . f f f 2 2 f f f . . . . 
     . . . f f f 2 2 2 2 f f f . . . 
@@ -451,76 +533,6 @@ Main_Player = sprites.create(img`
     . . . . . f f f f f f . . . . . 
     . . . . . f f . . f f . . . . . 
     `, SpriteKind.Player)
-game.setDialogFrame(img`
-    ffffff7ffffffffffff7ffffffffffff7ffffffffffff7ffffffffffff7fffffff
-    fffff77fffffffffff77fffffffffff77fffffffffff77fffffffffff77fffffff
-    ff444444444ffff444444444ffff444444444ffff444444444ffff444444444fff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    ff444444444ffff444444444ffff444444444ffff444444444ffff444444444fff
-    fff4444444ffffff4444444ffffff4444444ffffff4444444ffffff4444444ffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    ffffff7ffffffffffff7ffffffffffff7ffffffffffff7ffffffffffff7fffffff
-    fffff77fffffffffff77fffffffffff77fffffffffff77fffffffffff77fffffff
-    ff444444444ffff444444444ffff444444444ffff444444444ffff444444444fff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    f44444444444ff44444444444ff44444444444ff44444444444ff44444444444ff
-    ff444444444ffff444444444ffff444444444ffff444444444ffff444444444fff
-    fff4444444ffffff4444444ffffff4444444ffffff4444444ffffff4444444ffff
-    `)
-game.setDialogTextColor(1)
-game.showLongText("FIND THE DOOR", DialogLayout.Bottom)
-scene.cameraFollowSprite(Main_Player)
-controller.moveSprite(Main_Player)
+scene.cameraFollowSprite(player1)
+controller.moveSprite(player1)
 info.setLife(3)
